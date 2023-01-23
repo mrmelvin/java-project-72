@@ -2,9 +2,7 @@ package hexlet.code;
 
 import io.javalin.Javalin;
 
-
 public class App {
-
 
     public static Javalin getApp() {
         return Javalin.create()
