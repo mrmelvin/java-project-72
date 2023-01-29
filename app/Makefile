@@ -11,7 +11,7 @@ start:
 	APP_ENV=development ./gradlew run
 
 install:
-	./gradlew clean install
+	./gradlew install
 
 start-dist:
 	APP_ENV=production ./build/install/app/bin/app
@@ -19,8 +19,8 @@ start-dist:
 generate-migrations:
 	./gradlew generateMigrations
 
-run:
-	./gradlew run
+lint:
+	./gradlew checkstyleMain checkstyleTest
 
 test:
 	./gradlew test
@@ -28,7 +28,7 @@ test:
 report:
 	./gradlew jacocoTestReport
 
-lint:
-	./gradlew checkstyleMain checkstyleTest
+check-updates:
+	./gradlew dependencyUpdates
 
 .PHONY: build

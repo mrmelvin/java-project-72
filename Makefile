@@ -16,19 +16,16 @@ install:
 start-dist:
 	make -C app start-dist
 
-geenrate-migrations:
+generate-migrations:
 	make -C app generate-migrations
 
-run:
-	make -C app run
+lint:
+	make -C app lint
 
 test:
 	make -C app test
 
 report:
 	make -C app report
-
-lint:
-	make -C app lint
 	
 .PHONY: build
