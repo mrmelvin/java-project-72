@@ -1,4 +1,5 @@
-.DEFAULT_GOAL := build-run
+setup:
+	make -C app setup
 
 clean:
 	make -C app clean
@@ -9,8 +10,11 @@ build:
 install:
 	make -C app install
 
-run-dist:
-	make -C run-dist
+start-dist:
+	make -C app start-dist
+
+geenrate-migrations:
+	make -C app generate-migrations
 
 run:
 	make -C app run
@@ -23,8 +27,5 @@ report:
 
 lint:
 	make -C app lint
-
-
-build-run: build run
-
+	
 .PHONY: build

@@ -1,4 +1,5 @@
-.DEFAULT_GOAL := build-run
+setup:
+	gradle wrapper --gradle-version 7.4
 
 clean:
 	./gradlew clean
@@ -6,11 +7,17 @@ clean:
 build:
 	./gradlew clean build
 
+start:
+	APP_ENV=development ./gradlew run
+
 install:
 	./gradlew clean install
 
-run-dist:
-	./build/install/java-package/bin/java-package
+start-dist:
+	APP_ENV=production ./build/install/java-javalin-blog/bin/java-javalin-blog
+
+generate-migrations:
+	./gradlew generateMigrations
 
 run:
 	./gradlew run
@@ -23,8 +30,5 @@ report:
 
 lint:
 	./gradlew checkstyleMain checkstyleTest
-
-
-build-run: build run
 
 .PHONY: build
