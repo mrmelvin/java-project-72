@@ -7,6 +7,9 @@ clean:
 build:
 	make -C app build
 
+start:
+	make -C app start
+
 install:
 	make -C app install
 
