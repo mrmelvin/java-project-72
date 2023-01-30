@@ -9,15 +9,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import io.javalin.Javalin;
-import io.ebean.DB;
-import io.ebean.Database;
 
 
 class AppTest {
 
     private static Javalin app;
     private static String baseUrl;
-    private static Database database;
 
     @BeforeAll
     public static void beforeAll() {
@@ -25,7 +22,6 @@ class AppTest {
         app.start(0);
         int port = app.port();
         baseUrl = "http://localhost:" + port;
-        database = DB.getDefault();
     }
 
     @AfterAll
