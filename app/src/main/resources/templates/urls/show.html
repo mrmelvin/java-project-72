@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <title>Individual URL</title>
 </head>
-<body class="d-flex flex-column min-vh-100">
 
-    <section layout:fragment="all-urls" th:object="${url}">
+    <section layout:fragment="content" th:object="${url}">
         <div class="container-lg mt-5">
             <h1 th:text="*{getName()}">Сайт </h1>
 
@@ -49,5 +48,4 @@
         </div>
     </section>
 
-</body>
 </html>
