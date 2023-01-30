@@ -61,15 +61,12 @@ public class UrlController {
             UrlEntity checkedUrl = new QUrlEntity().name.equalTo(host).findOne();
             if (checkedUrl != null) {
                 context.attribute("flash", "Страница уже существует");
+                context.attribute("flash-type", "warning");
             } else {
-                String patternFormat = "dd/MM/yyyy HH:mm";
-                Instant now = Instant.now();
-//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(patternFormat)
-//                                                                .withZone(ZoneId.systemDefault());
-//                String currentTime = formatter.format(now);
-                UrlEntity newUrl = new UrlEntity(host, now);
+                UrlEntity newUrl = new UrlEntity(host);
                 newUrl.save();
                 context.attribute("flash", "Страница успешно добавлена");
+                context.attribute("flash-type", "success");
             }
         } catch (MalformedURLException e) {
             context.attribute("flash", "Некорректный URL");

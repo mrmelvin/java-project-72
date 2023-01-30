@@ -3,6 +3,14 @@
       layout:decorate="~{layouts/application.html}">
 
     <main class="flex-grow-1">
+        <div
+                th:if="${session.flash}"
+                th:class="'rounded-0 m-0 alert alert-dismissible fade show alert-' + ${context.consumeSessionAttribute('flash-type')}"
+                role="alert"
+        >
+            <p class="m-0" th:text="${context.consumeSessionAttribute('flash')}"></p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <section layout:fragment="content">
             <div class="container-fluid bg-dark p-5">
                 <div class="row">

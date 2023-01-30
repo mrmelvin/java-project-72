@@ -17,9 +17,8 @@ public class UrlEntity extends Model {
     @WhenCreated
     private Instant createAt;
 
-    public UrlEntity(String urlName, Instant urlCreated) {
+    public UrlEntity(String urlName) {
         this.name = urlName;
-        this.createAt = urlCreated;
     }
 
     public int getId() {
