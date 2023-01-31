@@ -12,9 +12,19 @@ import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Collectors;
 
-
-
 public class UrlController {
+
+    private static String getHostAndPort(String url) {
+        try {
+            URL preparedUrl = new URL(url);
+            Integer port = preparedUrl.getPort();
+            String portValue = (port != -1 ? Integer.toString(port) : "");
+            String address = portValue.equals("") ? preparedUrl.getHost() : preparedUrl.getHost() + ":" + portValue;
+            return address;
+        } catch (MalformedURLException e) {
+            return "incorrect";
+        }
+    }
     public static void getAllUrls(Context context) {
 
         int page = context.queryParamAsClass("page", Integer.class).getOrDefault(1) - 1;
@@ -54,24 +64,22 @@ public class UrlController {
         String url = context.formParam("url");
         System.out.println(url);
 
-        try {
-            URL u = new URL(url);
-            String host = u.getHost();
-            UrlEntity checkedUrl = new QUrlEntity().name.equalTo(host).findOne();
+        String siteAddress = getHostAndPort(url);
+        if (siteAddress.equals("incorrect")) {
+            context.attribute("flash", "Некорректный URL");
+            context.attribute("flash-type", "danger");
+        } else {
+            UrlEntity checkedUrl = new QUrlEntity().name.equalTo(siteAddress).findOne();
             if (checkedUrl != null) {
                 context.attribute("flash", "Страница уже существует");
                 context.attribute("flash-type", "warning");
             } else {
-                UrlEntity newUrl = new UrlEntity(host);
+                UrlEntity newUrl = new UrlEntity(siteAddress);
                 newUrl.save();
                 context.attribute("flash", "Страница успешно добавлена");
                 context.attribute("flash-type", "success");
             }
-        } catch (MalformedURLException e) {
-            context.attribute("flash", "Некорректный URL");
         }
-
         context.redirect("/urls");
-
     }
 }
