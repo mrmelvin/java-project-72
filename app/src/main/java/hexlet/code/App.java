@@ -47,6 +47,9 @@ public class App {
                 post(UrlController::addUrl);
                 path("{id}", () -> {
                     get(UrlController::getUrl);
+                    path("checks", () -> {
+                        post(UrlController::checkUrl);
+                    });
                 });
             });
         });

@@ -11,8 +11,8 @@ import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import io.javalin.Javalin;
 
-import hexlet.code.domain.UrlEntity;
-import hexlet.code.domain.query.QUrlEntity;
+import hexlet.code.domain.Url;
+import hexlet.code.domain.query.QUrl;
 
 class AppTest {
 
@@ -43,9 +43,9 @@ class AppTest {
                             .field("url", someUrl).asEmpty();
 
             assertThat(response.getStatus()).isEqualTo(302);
-            System.out.println(new QUrlEntity().findList());
-            UrlEntity urlFromDB = new QUrlEntity().name.contains("www.youtube.com").findOne();
-            assertThat(urlFromDB.getName()).isEqualTo("www.youtube.com");
+            Url urlFromDB = new QUrl().name.contains("https://www.youtube.com").findOne();
+            assertThat(urlFromDB.getName()).isNotNull();
+            assertThat(urlFromDB.getName()).isEqualTo("https://www.youtube.com/");
         }
 
         @Test
@@ -55,10 +55,10 @@ class AppTest {
                     .field("url", someUrl).asEmpty();
 
             assertThat(response.getStatus()).isEqualTo(302);
-            System.out.println(new QUrlEntity().findList());
 
-            UrlEntity urlFromDB = new QUrlEntity().name.contains("ru.hexlet.io:12345").findOne();
-            assertThat(urlFromDB.getName()).isEqualTo("ru.hexlet.io:12345");
+            Url urlFromDB = new QUrl().name.contains("https://ru.hexlet.io:12345").findOne();
+            assertThat(urlFromDB.getName()).isNotNull();
+            assertThat(urlFromDB.getName()).isEqualTo("https://ru.hexlet.io:12345/");
         }
 
         @Test
@@ -68,7 +68,7 @@ class AppTest {
 
             HttpResponse<String> response = Unirest.get(baseUrl + "/urls").asString();
             assertThat(response.getStatus()).isEqualTo(200);
-            assertThat(response.getBody()).contains("foobar.com");
+            assertThat(response.getBody()).contains("https://foobar.com");
 
         }
 
@@ -79,7 +79,7 @@ class AppTest {
 
             HttpResponse<String> response = Unirest.get(baseUrl + "/urls/4").asString();
             assertThat(response.getStatus()).isEqualTo(200);
-            assertThat(response.getBody()).contains("en.wikipedia.org");
+            assertThat(response.getBody()).contains("https://en.wikipedia.org");
         }
     }
 

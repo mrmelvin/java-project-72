@@ -1,13 +1,17 @@
 package hexlet.code.domain;
 
+import java.util.List;
 import io.ebean.Model;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.time.Instant;
 import io.ebean.annotation.WhenCreated;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.time.Instant;
+
 @Entity
-public class UrlEntity extends Model {
+public class Url extends Model {
 
     @Id
     private int id;
@@ -17,7 +21,10 @@ public class UrlEntity extends Model {
     @WhenCreated
     private Instant createAt;
 
-    public UrlEntity(String urlName) {
+    @OneToMany(cascade = CascadeType.ALL)
+    List<UrlCheck> urlChecks;
+
+    public Url(String urlName) {
         this.name = urlName;
     }
 
