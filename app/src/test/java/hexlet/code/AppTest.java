@@ -45,7 +45,7 @@ class AppTest {
             assertThat(response.getStatus()).isEqualTo(302);
             Url urlFromDB = new QUrl().name.contains("https://www.youtube.com").findOne();
             assertThat(urlFromDB.getName()).isNotNull();
-            assertThat(urlFromDB.getName()).isEqualTo("https://www.youtube.com/");
+            assertThat(urlFromDB.getName()).isEqualTo("https://www.youtube.com");
         }
 
         @Test
@@ -58,7 +58,7 @@ class AppTest {
 
             Url urlFromDB = new QUrl().name.contains("https://ru.hexlet.io:12345").findOne();
             assertThat(urlFromDB.getName()).isNotNull();
-            assertThat(urlFromDB.getName()).isEqualTo("https://ru.hexlet.io:12345/");
+            assertThat(urlFromDB.getName()).isEqualTo("https://ru.hexlet.io:12345");
         }
 
         @Test

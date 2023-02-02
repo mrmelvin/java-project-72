@@ -3,12 +3,12 @@
       layout:decorate="~{layouts/application.html}">
 <head>
     <meta charset="UTF-8">
-    <title>Individual URL</title>
+    <title>Данный сайт</title>
 </head>
 
     <section layout:fragment="content" th:object="${url}">
         <div class="container-lg mt-5">
-            <h1 th:text="*{getName()}">Сайт </h1>
+            <h1>Сайт <span th:text="*{getName()}"></span> </h1>
 
             <table class="table table-bordered table-hover mt-3">
                 <tbody>
@@ -22,7 +22,7 @@
                 </tr>
                 <tr>
                     <td>Дата создания</td>
-                    <td th:text="*{#temporals.format(getCreateAt, 'dd/MMM/yyyy HH:mm')}"></td>
+                    <td th:text="*{#temporals.format(getCreateAt, 'dd/MM/yyyy HH:mm')}"></td>
                 </tr>
                 </tbody>
             </table>
@@ -48,7 +48,7 @@
                         <td th:text="*{getTitle()}"></td>
                         <td th:text="*{getH1()}"></td>
                         <td th:text="*{getDescription()}"></td>
-                        <td th:text="*{#temporals.format(getCreateAt, 'dd/MMM/yyyy HH:mm')}"></td>
+                        <td th:text="*{#temporals.format(getCreateAt, 'dd/MM/yyyy HH:mm')}"></td>
                     </tr>
                 </tbody>
             </table>

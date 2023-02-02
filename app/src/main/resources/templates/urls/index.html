@@ -2,7 +2,7 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/application.html}">
 <head>
-    <title>Current URLs</title>
+    <title>Список сайтов</title>
 </head>
 
     <section layout:fragment="content">
@@ -23,7 +23,7 @@
                     <td>
                         <a th:href="@{/urls/{id}(id=*{getId()})}" th:text="*{getName()}"></a>
                     </td>
-                    <td th:text="*{#temporals.format(getCreateAt, 'dd/MMM/yyyy HH:mm')}"></td>
+                    <td th:text="*{#temporals.format(getCreateAt, 'dd/MM/yyyy HH:mm')}"></td>
                 </tr>
                 </tbody>
             </table>
