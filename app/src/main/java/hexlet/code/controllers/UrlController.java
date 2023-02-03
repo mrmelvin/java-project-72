@@ -7,8 +7,6 @@ import hexlet.code.domain.query.QUrl;
 import java.net.URL;
 import java.net.MalformedURLException;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 import java.util.stream.Collectors;
 
@@ -27,12 +25,11 @@ public class UrlController {
     private static String getHostAndPort(String url) {
         String urlWithHostAndPort = "";
         try {
-            new URL(url);
-            Pattern pattern = Pattern.compile("^(http|https)://([a-zA-Z0-9-.:]*)(?=/)");
-            Matcher matcher = pattern.matcher(url);
-            if (matcher.find()) {
-                urlWithHostAndPort = matcher.group(0);
-            }
+            URL preparedUrl = new URL(url);
+            String protocol = preparedUrl.getProtocol();
+            String host = preparedUrl.getHost();
+            String port = preparedUrl.getPort() == -1 ? "" : ":" + preparedUrl.getPort();
+            urlWithHostAndPort = protocol + "://" + host + port;
         } catch (MalformedURLException e) {
             urlWithHostAndPort = "incorrect";
         }

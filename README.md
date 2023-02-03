@@ -8,3 +8,22 @@
 
 ## Описание
 Анализатор веб-страниц на SEO-пригодность.
+
+## Требования
+
+* JDK 17
+* Gradle 7
+* GNU Make
+
+## Setup
+
+```bash
+make setup
+```
+
+## Run server
+
+```bash
+make start
+# Open http://localhost:8099
+```
