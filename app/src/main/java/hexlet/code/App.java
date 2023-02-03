@@ -16,6 +16,10 @@ import hexlet.code.controllers.UrlController;
 
 public class App {
 
+    private static int getPort() {
+        String port = System.getenv().getOrDefault("PORT", "8099");
+        return Integer.valueOf(port);
+    }
     private static String getMode() {
         return System.getenv().getOrDefault("APP_ENV", "development");
     }
@@ -74,6 +78,6 @@ public class App {
     }
     public static void main(String[] args) {
         Javalin app = getApp();
-        app.start();
+        app.start(getPort());
     }
 }

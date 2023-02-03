@@ -65,7 +65,7 @@ public class UrlCheck extends Model {
         return this.url;
     }
 
-    public Instant getCreateAt() {
-        return this.createAt;
+    public Instant getCreatedAt() {
+        return this.createdAt;
     }
 }

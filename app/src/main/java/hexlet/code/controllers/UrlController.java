@@ -68,7 +68,7 @@ public class UrlController {
     public static void getUrl(Context context) {
         String id = context.pathParam("id");
         Url oneUrl = new QUrl().id.equalTo(Integer.valueOf(id)).findOne();
-        List<UrlCheck> checks = new QUrlCheck().url.equalTo(oneUrl).orderBy().createAt.desc().findList();
+        List<UrlCheck> checks = new QUrlCheck().url.equalTo(oneUrl).orderBy().createdAt.desc().findList();
         context.attribute("url", oneUrl);
         context.attribute("checks", checks);
         context.render("urls/show.html");

@@ -36,7 +36,7 @@ public class Url extends Model {
         return this.name;
     }
 
-    public Instant getCreateAt() {
-        return this.createAt;
+    public Instant getCreatedAt() {
+        return this.createdAt;
     }
 }
