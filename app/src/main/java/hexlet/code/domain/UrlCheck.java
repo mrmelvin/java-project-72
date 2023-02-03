@@ -31,7 +31,7 @@ public class UrlCheck extends Model {
     private Url url;
 
     @WhenCreated
-    private Instant createAt;
+    private Instant createdAt;
 
     public UrlCheck(int statusCode, String title, String h1, String description, Url url) {
         this.statusCode = statusCode;

@@ -19,7 +19,7 @@ public class Url extends Model {
     private String name;
 
     @WhenCreated
-    private Instant createAt;
+    private Instant createdAt;
 
     @OneToMany(cascade = CascadeType.ALL)
     List<UrlCheck> urlChecks;
