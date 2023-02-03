@@ -12,7 +12,7 @@ import io.ebean.annotation.WhenCreated;
 
 
 @Entity
-public class UrlCheck extends Model {
+public final class UrlCheck extends Model {
 
     @Id
     private int id;
