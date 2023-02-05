@@ -22,7 +22,7 @@ import org.jsoup.nodes.Document;
 public class UrlController {
 
 
-    private static String getHostAndPort(String url) {
+    private static String getNormalizedUrl(String url) {
         String urlWithHostAndPort = "";
         try {
             URL preparedUrl = new URL(url);
@@ -74,7 +74,7 @@ public class UrlController {
 
     public static void addUrl(Context context) {
         String url = context.formParam("url");
-        String siteAddress = getHostAndPort(url);
+        String siteAddress = getNormalizedUrl(url);
 
         if (siteAddress.equals("incorrect")) {
             context.sessionAttribute("flash", "Некорректный URL");
