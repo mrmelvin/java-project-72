@@ -10,7 +10,7 @@
 Анализатор веб-страниц на SEO-пригодность.
 
 ### Пример приложения
-https://java-project-72-production-68bf.up.railway.app/
+https://pageanalyzer.onrender.com/
 
 ## Требования
 
@@ -29,4 +29,10 @@ make setup
 ```bash
 make start
 # Open http://localhost:8099
+```
+
+## Run tests
+
+```bash
+make test
 ```
