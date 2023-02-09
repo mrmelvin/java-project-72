@@ -11,6 +11,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Collectors;
 
 import hexlet.code.domain.query.QUrlCheck;
+import io.javalin.http.NotFoundResponse;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import io.ebean.PagedList;
@@ -65,11 +66,14 @@ public class UrlController {
     public static void getUrl(Context context) {
         String id = context.pathParam("id");
         Url oneUrl = new QUrl().id.equalTo(Integer.valueOf(id)).findOne();
+
+        if (oneUrl == null) {
+            throw new NotFoundResponse("This URL not added");
+        }
         List<UrlCheck> checks = new QUrlCheck().url.equalTo(oneUrl).orderBy().createdAt.desc().findList();
         context.attribute("url", oneUrl);
         context.attribute("checks", checks);
         context.render("urls/show.html");
-
     }
 
     public static void addUrl(Context context) {
