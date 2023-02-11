@@ -64,9 +64,9 @@ public class UrlController {
     }
 
     public static void getUrl(Context context) {
-        String id = context.pathParam("id");
-        Url oneUrl = new QUrl().id.equalTo(Integer.valueOf(id)).findOne();
-
+        String paramId = context.pathParam("id");
+        int id = paramId.chars().allMatch(Character::isDigit) ? Integer.valueOf(paramId) : 0;
+        Url oneUrl = new QUrl().id.equalTo(id).findOne();
         if (oneUrl == null) {
             throw new NotFoundResponse("This URL not added");
         }
