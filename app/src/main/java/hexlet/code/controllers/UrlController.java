@@ -17,6 +17,7 @@ import kong.unirest.Unirest;
 import io.ebean.PagedList;
 import io.javalin.http.Context;
 
+import kong.unirest.UnirestException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -100,25 +101,35 @@ public class UrlController {
 
     public static void checkUrl(Context context) {
         Integer id = Integer.valueOf(context.path().replaceAll("([a-zA-Z]+|\\/)", ""));
+        String currentPath = "/urls/" + id;
         Url checkedUrl = new QUrl().id.equalTo(id).findOne();
         String url = checkedUrl.getName();
-        HttpResponse<String> response = Unirest.get(url).asString();
-        int statusCode = response.getStatus();
-        String title = "";
-        String h1 = "";
-        String description = "";
-        if (statusCode == 200) {
-            String pageContent = response.getBody();
-            Document doc = Jsoup.parse(pageContent);
-            title = doc.title();
-            h1 = doc.getElementsByTag("h1").text();
-            description = doc.select("meta[name=description]").attr("content");
+        try {
+            HttpResponse<String> response = Unirest.get(url).asString();
+            int statusCode = response.getStatus();
+            if (statusCode == 200) {
+                String title = "";
+                String h1 = "";
+                String description = "";
+                String pageContent = response.getBody();
+                Document doc = Jsoup.parse(pageContent);
+                title = doc.title();
+                h1 = doc.getElementsByTag("h1").text();
+                description = doc.select("meta[name=description]").attr("content");
+                UrlCheck newCheck = new UrlCheck(statusCode, title, h1, description, checkedUrl);
+                newCheck.save();
+
+                context.sessionAttribute("flash", "Страница успешно проверена");
+                context.sessionAttribute("flash-type", "success");
+                context.redirect(currentPath);
+            } else {
+                context.sessionAttribute("flash", "Укаазнный URL недоступен");
+                context.sessionAttribute("flash-type", "danger");
+            }
+        } catch (UnirestException e) {
+            context.sessionAttribute("flash", "Некорректный URL");
+            context.sessionAttribute("flash-type", "danger");
+            context.redirect(currentPath);
         }
-        UrlCheck newCheck = new UrlCheck(statusCode, title, h1, description, checkedUrl);
-        newCheck.save();
-        String currentPath = "/urls/" + id;
-        context.sessionAttribute("flash", "Страница успешно проверена");
-        context.sessionAttribute("flash-type", "success");
-        context.redirect(currentPath);
     }
 }
